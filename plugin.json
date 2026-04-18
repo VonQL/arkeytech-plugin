@@ -1,0 +1,37 @@
+{
+  "name": "architect-plugin",
+  "version": "1.0.0",
+  "description": "AI-powered architect assistant for design, documentation, and technical validation. Security-first by default.",
+  "author": "vlagare",
+  "platforms": ["claude-code", "cursor"],
+  "agents": [
+    {
+      "id": "design",
+      "skill": "agents/design-agent/SKILL.md",
+      "command": "/architect design",
+      "namespace": "architect:design"
+    },
+    {
+      "id": "docs",
+      "skill": "agents/docs-agent/SKILL.md",
+      "command": "/architect docs",
+      "namespace": "architect:docs"
+    },
+    {
+      "id": "validate",
+      "skill": "agents/validation-agent/SKILL.md",
+      "command": "/architect validate",
+      "namespace": "architect:validate"
+    }
+  ],
+  "config": {
+    "outputDir": "docs/architecture",
+    "autoDetect": true,
+    "securityFirst": true
+  },
+  "frameworks": {
+    "architecture": ["c4", "madr", "arc42", "togaf", "ddd", "well-architected"],
+    "security": ["owasp", "nist-csf", "stride", "cis", "iso27001", "soc2", "pci-dss", "hipaa"],
+    "documentation": ["diataxis", "openapi", "asyncapi", "rfc"]
+  }
+}
