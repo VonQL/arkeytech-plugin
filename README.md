@@ -1,4 +1,4 @@
-# Architect Plugin
+# Arkeytech
 
 AI-powered architect assistant for Claude Code and Cursor. Guides agents through system design, documentation, and technical validation with security-first defaults.
 
@@ -22,8 +22,8 @@ Security is embedded by default in every agent output. It cannot be turned off.
 Register the plugin as a marketplace, then install:
 
 ```bash
-/plugin marketplace add vlagare/architect-plugin
-/plugin install architect-plugin@architect-plugin
+/plugin marketplace add vlagare/arkeytech
+/plugin install arkeytech@arkeytech
 ```
 
 That's it. The agents are available immediately in any Claude Code session.
@@ -33,10 +33,10 @@ That's it. The agents are available immediately in any Claude Code session.
 ### Claude Code (npm / npx)
 
 ```bash
-npx architect-plugin install
+npx arkeytech install
 ```
 
-This symlinks the plugin to `~/.claude/plugins/architect-plugin/`. Then configure the post-edit hook in your project's `.claude/settings.json`:
+This symlinks the plugin to `~/.claude/plugins/arkeytech/`. Then configure the post-edit hook in your project's `.claude/settings.json`:
 
 ```json
 {
@@ -44,7 +44,7 @@ This symlinks the plugin to `~/.claude/plugins/architect-plugin/`. Then configur
     "post_tool_use": [
       {
         "matcher": "Write|Edit",
-        "hooks": ["bash ~/.claude/plugins/architect-plugin/platform/claude-code/hooks/post-edit.sh"]
+        "hooks": ["bash ~/.claude/plugins/arkeytech/platform/claude-code/hooks/post-edit.sh"]
       }
     ]
   }
@@ -62,7 +62,7 @@ This symlinks the plugin to `~/.claude/plugins/architect-plugin/`. Then configur
 
 **Option B: Copy**
 ```bash
-cp -r . ~/.claude/plugins/architect-plugin/
+cp -r . ~/.claude/plugins/arkeytech/
 ```
 
 **Configure the post-edit hook** in your project's `.claude/settings.json`:
@@ -88,7 +88,7 @@ cp -r . ~/.claude/plugins/architect-plugin/
 
 **Option A: npx**
 ```bash
-npx architect-plugin install --cursor
+npx arkeytech install --cursor
 ```
 
 **Option B: Manual**

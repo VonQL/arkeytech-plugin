@@ -1,5 +1,5 @@
 {
-  "name": "architect-plugin",
+  "name": "arkeytech",
   "description": "AI architect assistant marketplace",
   "owner": {
     "name": "vlagare"
@@ -10,10 +10,10 @@
   },
   "plugins": [
     {
-      "name": "architect-plugin",
+      "name": "arkeytech",
       "source": {
         "source": "url",
-        "url": "https://github.com/vlagare/architect-plugin.git"
+        "url": "https://github.com/vlagare/arkeytech.git"
       },
       "description": "AI-powered architect assistant for Claude Code: C4 diagrams, ADRs, arc42, STRIDE threat modeling, DDD, Well-Architected reviews, and compliance validation. Security-first by default.",
       "version": "1.0.0",

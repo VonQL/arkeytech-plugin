@@ -77,7 +77,7 @@ function copyDirRecursive(src, dest) {
 // ──────────────────────────────────────────────
 function validate() {
   errors = 0;
-  header('Validating architect-plugin structure...');
+  header('Validating arkeytech structure...');
   divider();
 
   // plugin.json
@@ -167,14 +167,14 @@ function validate() {
 
 // ──────────────────────────────────────────────
 // install --claude  (default)
-// Symlinks plugin into ~/.claude/plugins/architect-plugin
+// Symlinks plugin into ~/.claude/plugins/arkeytech
 // ──────────────────────────────────────────────
 function installClaude() {
   header('Installing for Claude Code...');
   divider();
 
   const claudePluginsDir = path.join(os.homedir(), '.claude', 'plugins');
-  const target = path.join(claudePluginsDir, 'architect-plugin');
+  const target = path.join(claudePluginsDir, 'arkeytech');
 
   fs.mkdirSync(claudePluginsDir, { recursive: true });
 
@@ -247,14 +247,14 @@ function installCursor(projectDir) {
 // ──────────────────────────────────────────────
 function printHelp() {
   console.log(`
-${c.bold}architect-plugin${c.reset} — AI architect assistant for Claude Code and Cursor
+${c.bold}arkeytech${c.reset} — AI architect assistant for Claude Code and Cursor
 
 ${c.bold}Usage:${c.reset}
-  npx architect-plugin install              Install for Claude Code (symlink to ~/.claude/plugins)
-  npx architect-plugin install --cursor     Install Cursor rules into current directory
-  npx architect-plugin install --cursor /path/to/project
-  npx architect-plugin validate             Validate plugin structure
-  npx architect-plugin help                 Show this help
+  npx arkeytech install              Install for Claude Code (symlink to ~/.claude/plugins)
+  npx arkeytech install --cursor     Install Cursor rules into current directory
+  npx arkeytech install --cursor /path/to/project
+  npx arkeytech validate             Validate plugin structure
+  npx arkeytech help                 Show this help
 
 ${c.bold}Claude Code commands (after install):${c.reset}
   /architect design     C4 diagrams, ADRs, arc42, STRIDE, DDD, Well-Architected

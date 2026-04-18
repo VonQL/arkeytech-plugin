@@ -1,12 +1,12 @@
 {
-  "name": "architect-plugin",
+  "name": "arkeytech",
   "description": "AI-powered architect assistant for Claude Code: C4 diagrams, ADRs, arc42, STRIDE threat modeling, DDD, Well-Architected reviews, and compliance validation. Security-first by default.",
   "version": "1.0.0",
   "author": {
     "name": "vlagare"
   },
-  "homepage": "https://github.com/vlagare/architect-plugin",
-  "repository": "https://github.com/vlagare/architect-plugin",
+  "homepage": "https://github.com/vlagare/arkeytech",
+  "repository": "https://github.com/vlagare/arkeytech",
   "license": "MIT",
   "keywords": [
     "architecture",
