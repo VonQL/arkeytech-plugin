@@ -1,0 +1,23 @@
+{
+  "name": "architect-plugin",
+  "description": "AI architect assistant marketplace",
+  "owner": {
+    "name": "vlagare"
+  },
+  "metadata": {
+    "description": "AI-powered architect assistant for design, documentation, and technical validation",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "architect-plugin",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/vlagare/architect-plugin.git"
+      },
+      "description": "AI-powered architect assistant for Claude Code: C4 diagrams, ADRs, arc42, STRIDE threat modeling, DDD, Well-Architected reviews, and compliance validation. Security-first by default.",
+      "version": "1.0.0",
+      "strict": true
+    }
+  ]
+}

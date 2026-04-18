@@ -17,14 +17,50 @@ Security is embedded by default in every agent output. It cannot be turned off.
 
 ## Installation
 
-### Claude Code
+### Claude Code (Marketplace) — Recommended
+
+Register the plugin as a marketplace, then install:
+
+```bash
+/plugin marketplace add vlagare/architect-plugin
+/plugin install architect-plugin@architect-plugin
+```
+
+That's it. The agents are available immediately in any Claude Code session.
+
+---
+
+### Claude Code (npm / npx)
+
+```bash
+npx architect-plugin install
+```
+
+This symlinks the plugin to `~/.claude/plugins/architect-plugin/`. Then configure the post-edit hook in your project's `.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "post_tool_use": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": ["bash ~/.claude/plugins/architect-plugin/platform/claude-code/hooks/post-edit.sh"]
+      }
+    ]
+  }
+}
+```
+
+---
+
+### Claude Code (Manual)
 
 **Option A: Symlink (recommended for development)**
 ```bash
 ./build.sh install
 ```
 
-**Option B: Manual copy**
+**Option B: Copy**
 ```bash
 cp -r . ~/.claude/plugins/architect-plugin/
 ```
@@ -50,7 +86,12 @@ cp -r . ~/.claude/plugins/architect-plugin/
 
 ### Cursor
 
-Copy the Cursor rule files to your project:
+**Option A: npx**
+```bash
+npx architect-plugin install --cursor
+```
+
+**Option B: Manual**
 ```bash
 mkdir -p .cursor/rules
 cp platform/cursor/rules/*.mdc .cursor/rules/

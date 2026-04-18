@@ -1,0 +1,31 @@
+{
+  "name": "architect-plugin",
+  "version": "1.0.0",
+  "description": "AI-powered architect assistant for Claude Code and Cursor. Guides agents through system design, documentation, and technical validation with security-first defaults.",
+  "author": "vlagare",
+  "license": "MIT",
+  "bin": {
+    "architect-plugin": "./cli.js"
+  },
+  "files": [
+    "agents/",
+    "core/",
+    "platform/",
+    "plugin.json",
+    "cli.js",
+    "README.md"
+  ],
+  "keywords": [
+    "architecture",
+    "claude-code",
+    "cursor",
+    "adr",
+    "c4",
+    "arc42",
+    "security",
+    "ai-agent"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
