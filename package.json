@@ -1,11 +1,11 @@
 {
-  "name": "arkeytech",
+  "name": "arkeytech-plugin",
   "version": "1.0.0",
   "description": "AI-powered architect assistant for Claude Code and Cursor. Guides agents through system design, documentation, and technical validation with security-first defaults.",
   "author": "vlagare",
   "license": "MIT",
   "bin": {
-    "arkeytech": "./cli.js"
+    "arkeytech-plugin": "./cli.js"
   },
   "files": [
     "agents/",
