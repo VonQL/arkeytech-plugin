@@ -162,3 +162,21 @@ docs/architecture/
 └── ubiquitous-language/
     └── [context].md
 ```
+
+---
+
+## Reference Material
+
+Consult these files in `.arkeytech/` for authoritative templates and framework guidance:
+
+- `.arkeytech/core/frameworks/c4.md` — C4 diagram conventions and Mermaid templates
+- `.arkeytech/core/frameworks/adr.md` — MADR 4.0 full specification
+- `.arkeytech/core/frameworks/arc42.md` — arc42 section reference
+- `.arkeytech/core/frameworks/ddd.md` — DDD bounded context guidance
+- `.arkeytech/core/frameworks/well-architected.md` — Well-Architected pillar definitions
+- `.arkeytech/core/frameworks/togaf.md` — TOGAF 10 reference
+- `.arkeytech/core/security/threat-modeling.md` — STRIDE threat modeling reference
+- `.arkeytech/core/security/nist.md` — NIST CSF 2.0 + SP 800-207 (Zero Trust)
+- `.arkeytech/core/templates/design-brief.md` — Design brief template
+- `.arkeytech/core/templates/executive-summary.md` — Executive summary template
+- `.arkeytech/agents/design-agent/SKILL.md` — Full agent instructions

@@ -186,3 +186,20 @@ Write to `docs/architecture/`:
 7. Well-Architected Review (pillar scores)
 8. Remediation Roadmap (priority order, owner, target date)
 9. Sign-off (Approved / Approved with conditions / Rejected)
+
+---
+
+## Reference Material
+
+Consult these files in `.arkeytech/` for authoritative checklists and framework guidance:
+
+- `.arkeytech/core/security/threat-modeling.md` — STRIDE threat modeling reference
+- `.arkeytech/core/security/owasp.md` — OWASP Top 10 + ASVS L2 checklist
+- `.arkeytech/core/security/nist.md` — NIST CSF 2.0 + SP 800-207 (Zero Trust)
+- `.arkeytech/core/security/compliance.md` — Compliance frameworks (ISO 27001, SOC 2, PCI-DSS, HIPAA)
+- `.arkeytech/core/security/cloud-security.md` — CIS Benchmarks (AWS/Azure/GCP)
+- `.arkeytech/core/frameworks/well-architected.md` — Well-Architected pillar definitions
+- `.arkeytech/core/templates/validation-report.md` — Validation report template
+- `.arkeytech/core/templates/security-review.md` — Security review template
+- `.arkeytech/core/templates/executive-summary.md` — Executive summary template
+- `.arkeytech/agents/validation-agent/SKILL.md` — Full agent instructions

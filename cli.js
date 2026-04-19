@@ -13,6 +13,7 @@ const PLUGIN_JSON = path.join(PLUGIN_ROOT, 'plugin.json');
 const AGENTS_DIR = path.join(PLUGIN_ROOT, 'agents');
 const CORE_DIR = path.join(PLUGIN_ROOT, 'core');
 const CURSOR_RULES_DIR = path.join(PLUGIN_ROOT, 'platform', 'cursor', 'rules');
+const COPILOT_DIR = path.join(PLUGIN_ROOT, 'platform', 'copilot');
 const HOOK_FILE = path.join(PLUGIN_ROOT, 'platform', 'claude-code', 'hooks', 'post-edit.sh');
 
 // ──────────────────────────────────────────────
@@ -217,13 +218,14 @@ function installCursor(projectDir) {
   header('Installing for Cursor...');
   divider();
 
-  const target = path.join(projectDir, '.cursor', 'rules');
-  fs.mkdirSync(target, { recursive: true });
+  // 1. Cursor rules → .cursor/rules/
+  const rulesTarget = path.join(projectDir, '.cursor', 'rules');
+  fs.mkdirSync(rulesTarget, { recursive: true });
 
   const rules = ['architect-design.mdc', 'architect-docs.mdc', 'architect-validation.mdc'];
   for (const rule of rules) {
     const src = path.join(CURSOR_RULES_DIR, rule);
-    const dest = path.join(target, rule);
+    const dest = path.join(rulesTarget, rule);
     if (!fileExists(src)) {
       fail(`Source rule not found: ${src}`);
       continue;
@@ -232,10 +234,74 @@ function installCursor(projectDir) {
     pass(`Copied ${rule} → ${dest}`);
   }
 
+  // 2. Agents → .arkeytech/agents/
+  const agentsTarget = path.join(projectDir, '.arkeytech', 'agents');
+  copyDirRecursive(AGENTS_DIR, agentsTarget);
+  pass(`Copied agents/ → ${agentsTarget}`);
+
+  // 3. Core (frameworks, security, templates) → .arkeytech/core/
+  const coreTarget = path.join(projectDir, '.arkeytech', 'core');
+  copyDirRecursive(CORE_DIR, coreTarget);
+  pass(`Copied core/ → ${coreTarget}`);
+
   console.log('');
   if (errors === 0) {
     pass('Cursor install complete.');
     info('Agents activate automatically based on file patterns and trigger keywords.');
+    info('Reference material installed in .arkeytech/ (agents, frameworks, security, templates).');
+  } else {
+    console.log(`${c.red}✗ Install completed with ${errors} error(s)${c.reset}`);
+    process.exit(1);
+  }
+}
+
+// ──────────────────────────────────────────────
+// install --copilot [project-dir]
+// Copies agents, skills, instructions, and core into the project
+// ──────────────────────────────────────────────
+function installCopilot(projectDir) {
+  header('Installing for VS Code Copilot...');
+  divider();
+
+  // 1. Agent files → .github/agents/
+  const agentsGithubTarget = path.join(projectDir, '.github', 'agents');
+  const copilotAgentsSrc = path.join(COPILOT_DIR, 'agents');
+  copyDirRecursive(copilotAgentsSrc, agentsGithubTarget);
+  pass(`Copied Copilot agents → ${agentsGithubTarget}`);
+
+  // 2. Skills → .github/skills/
+  const skillsTarget = path.join(projectDir, '.github', 'skills');
+  const copilotSkillsSrc = path.join(COPILOT_DIR, 'skills');
+  copyDirRecursive(copilotSkillsSrc, skillsTarget);
+  pass(`Copied Copilot skills → ${skillsTarget}`);
+
+  // 3. copilot-instructions.md → .github/copilot-instructions.md
+  const instrSrc = path.join(COPILOT_DIR, 'copilot-instructions.md');
+  const instrDest = path.join(projectDir, '.github', 'copilot-instructions.md');
+  fs.mkdirSync(path.join(projectDir, '.github'), { recursive: true });
+  if (fileExists(instrDest)) {
+    warn(`${instrDest} already exists — skipping (review manually)`);
+  } else {
+    fs.copyFileSync(instrSrc, instrDest);
+    pass(`Copied copilot-instructions.md → ${instrDest}`);
+  }
+
+  // 4. Agents (SKILL.md sources) → .arkeytech/agents/
+  const arkeytechAgentsTarget = path.join(projectDir, '.arkeytech', 'agents');
+  copyDirRecursive(AGENTS_DIR, arkeytechAgentsTarget);
+  pass(`Copied agents/ → ${arkeytechAgentsTarget}`);
+
+  // 5. Core → .arkeytech/core/
+  const coreTarget = path.join(projectDir, '.arkeytech', 'core');
+  copyDirRecursive(CORE_DIR, coreTarget);
+  pass(`Copied core/ → ${coreTarget}`);
+
+  console.log('');
+  if (errors === 0) {
+    pass('VS Code Copilot install complete.');
+    info('Agents: @architect-design, @architect-docs, @architect-validation');
+    info('Skills: /architect-design, /architect-docs, /architect-validation');
+    info('Reference material installed in .arkeytech/ (agents, frameworks, security, templates).');
   } else {
     console.log(`${c.red}✗ Install completed with ${errors} error(s)${c.reset}`);
     process.exit(1);
@@ -247,14 +313,16 @@ function installCursor(projectDir) {
 // ──────────────────────────────────────────────
 function printHelp() {
   console.log(`
-${c.bold}arkeytech${c.reset} — AI architect assistant for Claude Code and Cursor
+${c.bold}arkeytech${c.reset} — AI architect assistant for Claude Code, Cursor, and VS Code Copilot
 
 ${c.bold}Usage:${c.reset}
-  npx arkeytech install              Install for Claude Code (symlink to ~/.claude/plugins)
-  npx arkeytech install --cursor     Install Cursor rules into current directory
-  npx arkeytech install --cursor /path/to/project
-  npx arkeytech validate             Validate plugin structure
-  npx arkeytech help                 Show this help
+  npx arkeytech-plugin install              Install for Claude Code (symlink to ~/.claude/plugins)
+  npx arkeytech-plugin install --cursor     Install Cursor rules + agents + core into current directory
+  npx arkeytech-plugin install --cursor /path/to/project
+  npx arkeytech-plugin install --copilot    Install Copilot agents + skills + core into current directory
+  npx arkeytech-plugin install --copilot /path/to/project
+  npx arkeytech-plugin validate             Validate plugin structure
+  npx arkeytech-plugin help                 Show this help
 
 ${c.bold}Claude Code commands (after install):${c.reset}
   /architect design     C4 diagrams, ADRs, arc42, STRIDE, DDD, Well-Architected
@@ -263,6 +331,14 @@ ${c.bold}Claude Code commands (after install):${c.reset}
 
 ${c.bold}Cursor:${c.reset}
   Agents activate automatically based on file patterns and trigger keywords.
+
+${c.bold}VS Code Copilot:${c.reset}
+  @architect-design     Invoke design agent
+  @architect-docs       Invoke docs agent
+  @architect-validation Invoke validation agent
+  /architect-design     Design skill (slash command)
+  /architect-docs       Docs skill (slash command)
+  /architect-validation Validation skill (slash command)
 `);
 }
 
@@ -274,13 +350,19 @@ const [,, command, ...args] = process.argv;
 switch (command) {
   case 'install': {
     const cursorFlag = args.includes('--cursor');
-    const cursorIndex = args.indexOf('--cursor');
+    const copilotFlag = args.includes('--copilot');
     if (cursorFlag) {
-      // optional path after --cursor; default to cwd
-      const projectDir = (cursorIndex !== -1 && args[cursorIndex + 1] && !args[cursorIndex + 1].startsWith('-'))
+      const cursorIndex = args.indexOf('--cursor');
+      const projectDir = (args[cursorIndex + 1] && !args[cursorIndex + 1].startsWith('-'))
         ? path.resolve(args[cursorIndex + 1])
         : process.cwd();
       installCursor(projectDir);
+    } else if (copilotFlag) {
+      const copilotIndex = args.indexOf('--copilot');
+      const projectDir = (args[copilotIndex + 1] && !args[copilotIndex + 1].startsWith('-'))
+        ? path.resolve(args[copilotIndex + 1])
+        : process.cwd();
+      installCopilot(projectDir);
     } else {
       installClaude();
     }

@@ -1,7 +1,7 @@
 {
   "name": "arkeytech-plugin",
-  "version": "1.0.0",
-  "description": "AI-powered architect assistant for Claude Code and Cursor. Guides agents through system design, documentation, and technical validation with security-first defaults.",
+  "version": "1.1.0",
+  "description": "AI-powered architect assistant for Claude Code, Cursor, and VS Code Copilot. Guides agents through system design, documentation, and technical validation with security-first defaults.",
   "author": "vlagare",
   "license": "MIT",
   "bin": {
@@ -19,6 +19,7 @@
     "architecture",
     "claude-code",
     "cursor",
+    "copilot",
     "adr",
     "c4",
     "arc42",

@@ -223,3 +223,19 @@ components:
 | RFC | `docs/rfcs/RFC-NNNN-[title].md` |
 | Runbook | `docs/runbooks/[operation-name].md` |
 | Executive Summary | `docs/architecture/executive-summary.md` |
+
+---
+
+## Reference Material
+
+Consult these files in `.arkeytech/` for authoritative templates and framework guidance:
+
+- `.arkeytech/core/frameworks/adr.md` — MADR 4.0 full specification
+- `.arkeytech/core/frameworks/arc42.md` — arc42 section reference
+- `.arkeytech/core/frameworks/ddd.md` — DDD bounded context guidance
+- `.arkeytech/core/frameworks/togaf.md` — TOGAF 10 reference
+- `.arkeytech/core/security/owasp.md` — OWASP Top 10 reference
+- `.arkeytech/core/security/compliance.md` — Compliance frameworks (ISO 27001, SOC 2, PCI-DSS, HIPAA)
+- `.arkeytech/core/templates/design-brief.md` — Design brief template
+- `.arkeytech/core/templates/executive-summary.md` — Executive summary template
+- `.arkeytech/agents/docs-agent/SKILL.md` — Full agent instructions

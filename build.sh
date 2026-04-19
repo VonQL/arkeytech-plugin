@@ -128,6 +128,39 @@ validate() {
     fi
   done
 
+  # Platform: Copilot agents
+  echo ""
+  echo "Platform — VS Code Copilot:"
+  COPILOT_DIR="$PLUGIN_ROOT/platform/copilot"
+  for agent_file in architect-design.agent.md architect-docs.agent.md architect-validation.agent.md; do
+    if [[ -f "$COPILOT_DIR/agents/$agent_file" ]]; then
+      if grep -q "^description:" "$COPILOT_DIR/agents/$agent_file"; then
+        pass "platform/copilot/agents/$agent_file — present, frontmatter OK"
+      else
+        fail "platform/copilot/agents/$agent_file — missing description in frontmatter"
+      fi
+    else
+      fail "platform/copilot/agents/$agent_file — missing"
+    fi
+  done
+  for skill_name in architect-design architect-docs architect-validation; do
+    SKILL_FILE="$COPILOT_DIR/skills/$skill_name/SKILL.md"
+    if [[ -f "$SKILL_FILE" ]]; then
+      if grep -q "^name:" "$SKILL_FILE" && grep -q "^description:" "$SKILL_FILE"; then
+        pass "platform/copilot/skills/$skill_name/SKILL.md — present, frontmatter OK"
+      else
+        fail "platform/copilot/skills/$skill_name/SKILL.md — missing required frontmatter"
+      fi
+    else
+      fail "platform/copilot/skills/$skill_name/SKILL.md — missing"
+    fi
+  done
+  if [[ -f "$COPILOT_DIR/copilot-instructions.md" ]]; then
+    pass "platform/copilot/copilot-instructions.md — present"
+  else
+    fail "platform/copilot/copilot-instructions.md — missing"
+  fi
+
   # build.sh executable
   echo ""
   if [[ -x "$PLUGIN_ROOT/build.sh" ]]; then
@@ -209,6 +242,7 @@ build() {
   echo "Next steps:"
   info "Claude Code: copy or symlink this plugin to ~/.claude/plugins/architect-plugin/"
   info "Cursor: copy platform/cursor/rules/*.mdc to your project's .cursor/rules/"
+  info "Copilot: copy platform/copilot/ agents and skills to your project's .github/"
   info "Hook: configure Claude Code settings.json to run platform/claude-code/hooks/post-edit.sh"
 }
 

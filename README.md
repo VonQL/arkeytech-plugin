@@ -1,6 +1,6 @@
 # Arkeytech
 
-AI-powered architect assistant for Claude Code and Cursor. Guides agents through system design, documentation, and technical validation with security-first defaults.
+AI-powered architect assistant for Claude Code, Cursor, and VS Code Copilot. Guides agents through system design, documentation, and technical validation with security-first defaults.
 
 ## What It Does
 
@@ -33,7 +33,7 @@ That's it. The agents are available immediately in any Claude Code session.
 ### Claude Code (npm / npx)
 
 ```bash
-npx arkeytech install
+npx arkeytech-plugin install
 ```
 
 This symlinks the plugin to `~/.claude/plugins/arkeytech/`. Then configure the post-edit hook in your project's `.claude/settings.json`:
@@ -88,7 +88,7 @@ cp -r . ~/.claude/plugins/arkeytech/
 
 **Option A: npx**
 ```bash
-npx arkeytech install --cursor
+npx arkeytech-plugin install --cursor
 ```
 
 **Option B: Manual**
@@ -100,6 +100,34 @@ cp platform/cursor/rules/*.mdc .cursor/rules/
 The agents activate automatically when you:
 - Open files matching the glob patterns (architecture, docs, infra, k8s)
 - Ask questions with trigger keywords (design, ADR, validate, security, compliance)
+
+### VS Code Copilot
+
+**Option A: npx**
+```bash
+npx arkeytech-plugin install --copilot
+```
+
+**Option B: Manual**
+```bash
+mkdir -p .github/agents .github/skills
+cp -r platform/copilot/agents/*.agent.md .github/agents/
+cp -r platform/copilot/skills/* .github/skills/
+cp platform/copilot/copilot-instructions.md .github/copilot-instructions.md
+mkdir -p .arkeytech
+cp -r agents/ .arkeytech/agents/
+cp -r core/ .arkeytech/core/
+```
+
+**Agents** (invoke with `@` in chat):
+- `@architect-design` — system design, C4 diagrams, ADRs, STRIDE
+- `@architect-docs` — arc42, ADRs, RFCs, runbooks, API specs
+- `@architect-validation` — security validation, compliance, Well-Architected
+
+**Skills** (invoke with `/` in chat):
+- `/architect-design` — on-demand design workflow
+- `/architect-docs` — on-demand documentation workflow
+- `/architect-validation` — on-demand validation workflow
 
 ---
 
